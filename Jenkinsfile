@@ -4,12 +4,15 @@ pipeline {
         registryCredential = 'docker_hub'
         dockerImage = ''
         dockerHost = 'tcp://127.0.0.1:2375'
+        DOCKER_USERNAME = 'dev7hd'
     }
     agent any
     stages {
         stage('Docker Login') {
             steps {
-                sh 'docker login'
+                withCredentials([string(credentialsId: 'DOCKER_PW', variable: 'DOCKER_PW')]) {
+                    sh 'docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PW}'
+                }
             }
         }
         stage('Cloning Git') {
