@@ -7,6 +7,11 @@ pipeline {
     }
     agent any
     stages {
+        stage('Docker Login') {
+            steps {
+                sh 'docker login'
+            }
+        }
         stage('Cloning Git') {
             steps {
                 git branch: 'main', url: 'https://github.com/Dev7HD/TP5_Jenkins_FreeStyle_Repo'
